@@ -28,7 +28,7 @@ class TextEditorApp(tk.Frame):
         
         #The text box to edit code
         self.textBox = tk.Text(self)
-        self.textBox.grid(row=0, column=0)
+        self.textBox.pack(side="bottom", fill= "both", expand=True)
 
         #Menu Buttons
         self.menuBar = tk.Menu(top)
