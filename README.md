@@ -1,6 +1,8 @@
 # Text-Editor
 An application which allows the user to edit text
+
 By Andrew Vieira
+
 Programmed with Python 3
 
 Features include:
