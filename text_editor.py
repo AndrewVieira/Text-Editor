@@ -16,6 +16,9 @@ class TextEditorApp(tk.Frame):
         self.master.geometry("640x480")
         self.master.minsize(320, 240)
 
+        #Popup!
+        self.master.bind("<Button-3>", self.popup)
+
         #Keep track of tabs
         #The reason this is here is because notebook does not return
         #child values of the tabs, so we have to keep track of it
@@ -48,6 +51,7 @@ class TextEditorApp(tk.Frame):
         self.fileMenu.add_command(label='Save', command=self.saveFile)
         self.fileMenu.add_command(label='Save As', command=self.saveAsFile)
         self.fileMenu.add_separator()
+        self.fileMenu.add_command(label='Close', command=self.closeTab)
         self.fileMenu.add_command(label='Exit', command=quit)
 
         #Edit
@@ -59,12 +63,19 @@ class TextEditorApp(tk.Frame):
         #About
         self.helpMenu = tk.Menu(self.menuBar)
         self.menuBar.add_cascade(label='Help', menu=self.helpMenu)
-        self.helpMenu.add_command(label='About', command=None)
+        self.helpMenu.add_command(label='About', command=self.about)
 
     #Find the value of the current tab textbox
     def getTabText(self):
         tabname = self.notebook.select()
         return self.tabs[tabname]
+
+    #Close the current tab
+    def closeTab(self):
+        tabname = self.notebook.select()
+        #Make sure there is a tab to even close
+        if tabname != '':
+            self.notebook.forget(self.tabs[tabname])
 
     #Creates a new textbox to edit files in
     def newTextBox(self):
@@ -140,6 +151,26 @@ class TextEditorApp(tk.Frame):
     def redo(self):
         self.getTabText().edit_redo()
 
+    #Creates a new window with about info
+    def about(self):
+        aboutWindow = tk.Toplevel(self)
+        aboutWindow.geometry("200x120")
+        aboutWindow.minsize(200, 120)
+        aboutWindow.maxsize(200, 120)
+        
+        aboutLabel = tk.Label(aboutWindow, text="Text Editor by Andrew Vieira")
+        aboutLabel.pack(side="top")
+        
+        aboutWindow.grab_set()
+
+    #Create a pop up menu
+    def popup(self, event):
+        popMenu = tk.Menu(self, tearoff=0)
+        popMenu.add_command(label='New', command=self.newFile)
+        popMenu.add_command(label='Close', command=self.closeTab)
+
+        popMenu.post(event.x_root, event.y_root)
+
 #Run the Program
 if __name__ == "__main__":
     #Create the application object
@@ -148,4 +179,3 @@ if __name__ == "__main__":
 
     #Run the Application
     app.mainloop()
-
