@@ -49,7 +49,6 @@ class TextEditorApp(tk.Frame):
         self.fileMenu.add_command(label='Open', command=self.openFile)
         self.fileMenu.add_separator()
         self.fileMenu.add_command(label='Save', command=self.saveFile)
-        self.fileMenu.add_command(label='Save As', command=self.saveAsFile)
         self.fileMenu.add_separator()
         self.fileMenu.add_command(label='Close', command=self.closeTab)
         self.fileMenu.add_command(label='Exit', command=quit)
@@ -114,22 +113,6 @@ class TextEditorApp(tk.Frame):
         self.notebook.tab(textbox, text=filename)
 
     def saveFile(self):
-        pass
-        """
-        #Get the current textbox
-        textbox = self.getTabText()
-
-        #Get current filename
-        current_file = 
-        
-        #Save the file without creating a new file if we know it already exists
-        if current_file != None:
-            saved_text = textbox.get('1.0', tk.END)
-            fm.save_file(current_file, saved_text)
-        else:
-            self.saveAsFile()"""
-
-    def saveAsFile(self):
         #Get the current textbox
         textbox = self.getTabText()
         
